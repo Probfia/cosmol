@@ -49,7 +49,15 @@ arg_crit = np.argmax(eps > 1)
 
 N = lna[arg_crit]
 
-eps_60 = np.interp(N-60,lna,eps)
-n_t = -2*eps_60
-print(n_t)
+delta_H = np.sqrt(512*np.pi/(75*8)*m**2*phi**4)
+delta_60 = np.interp(N-60,lna,delta_H)
 
+delta_H = np.sqrt(512*np.pi/(75*8)*m**2*phi**4)
+delta_60 = np.interp(N-60,lna,delta_H)
+fNL = 5/12*(n-1)
+
+num = 12*512**2
+zetaG = np.random.normal(size=num)*delta_60
+zeta = zetaG + 3./5*fNL*(np.square(zetaG)-zetaG**2)
+plt.plot(zeta)
+plt.show()

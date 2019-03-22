@@ -26,7 +26,7 @@ def d_dlnus(var,lna,params):
               *((1/H(phi,psi)*dHdphi(phi,psi)*psi+3)*psi + m**2/H(phi,psi)**2*phi)]
     return derivs
 
-phi_inti_vals = [0.2*x for x in range(10,30)]
+phi_inti_vals = [0.02*x for x in range(100,300)]
 N_vals = []
 n_60_vals = []
 for phi0 in phi_inti_vals:

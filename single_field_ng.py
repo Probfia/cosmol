@@ -1,4 +1,4 @@
-#calculate the relation between phi and the numbers of e-fold inflation
+#nongaussian
 
 import numpy as np
 from scipy.integrate import odeint
@@ -51,5 +51,18 @@ N = lna[arg_crit]
 
 eps_60 = np.interp(N-60,lna,eps)
 n_t = -2*eps_60
-print(n_t)
+r = 16*eps_60
+n = 1 - 4*eps_60
+fNL = 5/12*(n-1)
+print(n_t,r,fNL)
 
+delta_H = np.sqrt(512*np.pi/(75*8)*m**2*phi**4)
+delta_60 = np.interp(N-60,lna,delta_H)
+fNL = 5/12*(n-1)
+
+num = 12*2048**2
+zetaG = np.random.normal(size=num)*delta_60
+nonGauss = 3./5*fNL*(np.square(zetaG)-delta_60*2)
+zeta = zetaG + nonGauss
+plt.hist(nonGauss,normed=1,bins=100,facecolor='blue')
+plt.show()
