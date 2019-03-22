@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 #global parameters
 G = 1
 m1 = 10**-6
-m2 = 10**-2
+m2 = 10**-8
 phi0 = 4 #the location of the peak of the additional gaussian potential
 mu = 1
-alpha = 100
+alpha = 1000000000
 
 def V(phi,chi):
-    return 1./2*m1**2*phi**2*(1 + alpha*np.tanh(m2*chi)*np.exp(-(phi - phi0)**2/(2*mu)))
+    return 1./2*m1**2*phi**2*(1 + alpha*np.exp(m2*chi)*np.exp(-(phi - phi0)**2/(2*mu)))
 
 def V_phi(phi,chi):
     eps = 10**-5
@@ -58,7 +58,7 @@ def d_du(var,lna,paras):
 phi0 = 10
 psi0 = 0
 chi0 = 2
-xi0 = 0
+xi0 = -0.005
 H0 = H(phi0,psi0,chi0,xi0)
 paras = [H0,m1,m2]
 var0 = [phi0,psi0,chi0,xi0]
