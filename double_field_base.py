@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 #global parameters
 G = 1
 m1 = 10**-6
-m2 = 10**-2
-phi0 = 4 #the location of the peak of the additional gaussian potential
+m2 = 10**-3
+phipk = 4 #the location of the peak of the additional gaussian potential
 mu = 1
 alpha = 100
 
 def V(phi,chi):
-    return 1./2*m1**2*phi**2*(1 + alpha*np.tanh(m2*chi)*np.exp(-(phi - phi0)**2/(2*mu)))
+    return 1./2*m1**2*phi**2*(1 + alpha*np.tanh(m2*chi)*np.exp(-(phi - phipk)**2/(2*mu)))
 
 def V_phi(phi,chi):
     eps = 10**-5
