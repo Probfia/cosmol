@@ -76,12 +76,12 @@ H0 = H(phi0,psi0,chi0,xi0)
 paras = [H0,m1,m2]
 var0 = [phi0,psi0,chi0,xi0]
 
-lnaStop = 200
-num_of_pts = 1000
+lnaStop = 2000
+num_of_pts = 100000
 
-lna = np.linspace(0,lnaStop,num_of_pts)
+lnavals = np.linspace(0,lnaStop,num_of_pts)
 
-sol = odeint(d_du,var0,lna,args=(paras,))
+sol = odeint(d_du,var0,lnavals,args=(paras,))
 
 phivals = sol[:,0]
 psivals = sol[:,1]
@@ -102,13 +102,12 @@ c_21 = c_12
 c_22 = V_chi_chi(phivals,chivals)/Hvals**2 + 1./Hvals**2*(2*xivals*V_chi(phivals,chivals)) + (3 - epsvals)*xivals**2
 
 
-dotavals = np.exp(lna)*Hvals
+dotavals = np.exp(lnavals)*Hvals
 k = 0.002
 
-# get_val_for_given_lna
+# get_val_for_given_lna, return arr(lna)
 def get_val(arr,x):
-    k = int(x/(lnaStop/(num_of_pts-1)))
-    return arr[k]
+    return np.interp(x,lnavals,arr)
 
 # d/dlna action on Psi_{11}  Theta = dPsi/dlna , see eq.(3.14) on multi_field_codes
 def d_dNe_ij(var,lna,paras):
@@ -124,14 +123,14 @@ def d_dNe_ij(var,lna,paras):
 # initial values of Psi_{ij}, dPsi/dlna, only i=j have non-zero values
 Psi0_22 = Psi0_11 = 1./np.sqrt(2*k)
 Theta0_22 = Theta0_11 = -1./dotavals[0]*np.sqrt(k/2)
-ptbval0 = [Psi0_11,Theta0_11,Psi0_22,Theta0_22]
+ptbvar0 = [Psi0_11,Theta0_11,Psi0_22,Theta0_22]
 
-ptb_sol = odeint(d_dNe_ij,ptbval0,lna,args=(paras,))
+ptb_sol = odeint(d_dNe_ij,ptbvar0,lnavals,args=(paras,))
 
 Psi_11_vals = ptb_sol[:,0]
 Psi_22_vals = ptb_sol[:,2]
 
-plt.plot(lna,Psi_11_vals)
-plt.plot(lna,Psi_22_vals)
+plt.plot(lnavals,Psi_11_vals)
+plt.plot(lnavals,Psi_22_vals)
 
 plt.show()
