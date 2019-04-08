@@ -84,10 +84,10 @@ c_21_vals = c_12_vals
 
 c_22_vals = V_chi_chi(phivals,chivals)/Hvals**2 + (1./Hvals**2)*(2*xivals*V_chi(phivals,chivals)) + (3 - epsvals)*xivals**2
 
-pert_start = num_of_pts//5    # start calculate perturbation at lnavals[pert_start]
+pert_start = num_of_pts//200    # start calculate perturbation at lnavals[pert_start]
 avals = np.exp(lnavals)
 dotavals = np.exp(lnavals)*Hvals
-mk = 60   # k = mk*a*H
+mk = 50   # k = mk*a*H
 k = mk*Hvals[pert_start]*avals[pert_start]
 
 # get_val_for_given_lna, return arr(lna)
@@ -108,13 +108,13 @@ def d_dlna_ij(var,lna,paras):
     c_12 = get_val(c_12_vals,lna)
     c_21 = get_val(c_21_vals,lna)
     result = [RQ11,
-              (eps - 3)*RQ11 - (k**2/(a**2*H**2) + c_11)*RP11,
+              (eps - 3)*RQ11 - (k**2/(a**2*H**2))*RP11,
               IQ11,
-              (eps - 3)*IQ11 - (k**2/(a**2*H**2) + c_11)*IP11,
+              (eps - 3)*IQ11 - (k**2/(a**2*H**2))*IP11,
               RQ22,
-              (eps - 3)*RQ22 - (k**2/(a**2*H**2) + c_22)*RP22,
+              (eps - 3)*RQ22 - (k**2/(a**2*H**2))*RP22,
               IQ22,
-              (eps - 3)*IQ22 - (k**2/(a**2*H**2) + c_22)*IP22]
+              (eps - 3)*IQ22 - (k**2/(a**2*H**2))*IP22]
     return result
 
 
